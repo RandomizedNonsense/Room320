@@ -2,22 +2,32 @@
 //the "PlayerMovement" is an auto generated file from Unity
 //that is necessary for this to work properly.
 
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+
+[RequireComponent(typeof(Rigidbody2D))]
 public class MovementScript : MonoBehaviour
 {
-    //public GameObject playerSprite;
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
+
+    public SpriteRenderer playerSprite;
+    public Sprite upSprite;
+    public Sprite downSprite;
+    public Sprite leftSprite;
+    public Sprite rightSprite;
+
     public float moveSpeed = 5f;
+    
     public PlayerMovement playerControls;
     Vector2 moveDirection = Vector2.zero;
+    
     private InputAction move;
     private InputAction fire;
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         playerControls = new PlayerMovement();
     }
 
@@ -41,16 +51,29 @@ public class MovementScript : MonoBehaviour
     {
         
     }
+
     // Update is called once per frame
     void Update()
     {
         moveDirection = move.ReadValue<Vector2>();
-        Debug.Log("We moved: "+ move.ReadValue<Vector2>());
+        //Debug.Log("We moved: "+ move.ReadValue<Vector2>());
+
+        // Update sprite
+        if (moveDirection == Vector2.zero) {
+            return;
+        }
+
+        if (Mathf.Abs(moveDirection.y) > Mathf.Abs(moveDirection.x)) {
+            playerSprite.sprite = moveDirection.y > 0 ? upSprite : downSprite;
+        } else {
+            playerSprite.sprite = moveDirection.x > 0 ? rightSprite : leftSprite;
+        }
     }
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y*moveSpeed);
+        //rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y*moveSpeed);
+        rb.linearVelocity = moveDirection * moveSpeed;
     }
 
     private void Fire(InputAction.CallbackContext context){
