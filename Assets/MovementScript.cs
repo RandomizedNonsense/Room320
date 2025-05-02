@@ -5,12 +5,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class MovementScript : MonoBehaviour
 {
-    private Rigidbody2D rb;
-
     public SpriteRenderer playerSprite;
     public Sprite upSprite;
     public Sprite downSprite;
@@ -25,6 +24,26 @@ public class MovementScript : MonoBehaviour
     private InputAction move;
     private InputAction fire;
 
+    private Vector2 mousePos;
+    private float my;
+    private float mx;
+
+    public SpriteRenderer bulletSprite;//probably need to do some logic with these sprites like with the player but idk how
+    public SpriteRenderer gunSprite;
+
+
+    [SerializeField] private float bulletSpeed = 5f;
+
+    //Gun varialbes
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firingPoint;
+
+    [Range(0.1f, 2f)]
+    [SerializeField] private float fireRate = 0.5f;
+    private Rigidbody2D rb;
+    private float fireTimer; //determines when enough time has passed to shoot again
+
+
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         playerControls = new PlayerMovement();
@@ -36,7 +55,7 @@ public class MovementScript : MonoBehaviour
 
         fire = playerControls.Player.Fire;
         fire.Enable();
-        fire.performed += Fire;
+        
     }
 
     private void OnDisable() {
@@ -50,6 +69,20 @@ public class MovementScript : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float angle = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg - 90f; //The -90f makes the "top of hte player act as the front of the player"
+        transform.localRotation = Quaternion.Euler(0, 0, angle); //Dont ask me what this does
+        
+        if (Input.GetMouseButton(0) && fireTimer<= 0f){
+            Fire();
+            fireTimer = fireRate;
+        }
+        else{
+            fireTimer -= Time.deltaTime;
+        }
+
+
         moveDirection = move.ReadValue<Vector2>();
         //Debug.Log("We moved: "+ move.ReadValue<Vector2>());
 
@@ -67,10 +100,13 @@ public class MovementScript : MonoBehaviour
 
     private void FixedUpdate() {
         //rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y*moveSpeed);
+        rb.linearVelocity = new Vector2(mx, my).normalized * bulletSpeed;
+
         rb.linearVelocity = moveDirection * moveSpeed;
+
     }
 
-    private void Fire(InputAction.CallbackContext context) {
-        Debug.Log("We fired.");
+    private void Fire() {
+        Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
     }
 }
