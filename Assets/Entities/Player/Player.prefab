@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3192969326314083068}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FiringPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1590068960609978161}
   - component: {fileID: 3046481928816102744}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 976092340320247920}
   - component: {fileID: 5417477015854455330}
   - component: {fileID: 7153108016269010828}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,9 +172,6 @@ MonoBehaviour:
   leftSprite: {fileID: -1443072342100420003, guid: 52004e89a7b5e9f4b97891ca5a78eb96, type: 3}
   rightSprite: {fileID: -6524602446460829420, guid: 52004e89a7b5e9f4b97891ca5a78eb96, type: 3}
   moveSpeed: 5
-  gunPivot: {fileID: 0}
-  bulletSprite: {fileID: 0}
-  gunSprite: {fileID: 0}
   bulletSpeed: 5
   bulletPrefab: {fileID: 0}
   firingPoint: {fileID: 0}
