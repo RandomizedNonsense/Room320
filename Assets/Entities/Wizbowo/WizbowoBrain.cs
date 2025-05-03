@@ -4,10 +4,10 @@ public class WizbowoBrain : MonoBehaviour
 {
     private bool isAttacking = false;   // Determines whether or not Wizbowo is currenlty acting, or idling
 
-    [Range(0f, 10f, 0.5f)]
+    [Range(0f, 10f)]
     [SerializeField] float idleTime = 5f;   // How long Wizbowo idles before resuming attacks
 
-    [Range(0f, 1f, 0.05f)]
+    [Range(0f, 1f)]
     [SerializeField] float waveAttackOdds = 0.5f;   // The odds of choosing the "WandWave" attack over the "WandSlam" attack
 
     void Start()

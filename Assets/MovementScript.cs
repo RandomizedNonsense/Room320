@@ -28,10 +28,9 @@ public class MovementScript : MonoBehaviour
     private float my;
     private float mx;
 
-    [SerializeField] private GameObject gunPivot;
+    //[SerializeField] private GameObject gunPivot;
 
-    public SpriteRenderer bulletSprite; //probably need to do some logic with these sprites like with the player but idk how
-    public SpriteRenderer gunSprite;
+    //public SpriteRenderer bulletSprite; //probably need to do some logic with these sprites like with the player but idk how
 
     [SerializeField] private float bulletSpeed = 5f;
 
@@ -72,8 +71,8 @@ public class MovementScript : MonoBehaviour
     void Update() {
 
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float angle = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg - 90f; //The -90f makes the "top of hte player act as the front of the player"
-        gunPivot.transform.localRotation = Quaternion.Euler(0, 0, angle); //Dont ask me what this does
+        float angle = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg - 90f; //The -90f makes the "top of the player act as the front of the player"
+        //gunPivot.transform.localRotation = Quaternion.Euler(0, 0, angle); //Dont ask me what this does
         
         if (Input.GetMouseButton(0) && fireTimer<= 0f){
             Fire();
