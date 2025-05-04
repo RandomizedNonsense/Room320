@@ -10,6 +10,7 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerScript : MonoBehaviour
 {
+    private Rigidbody2D rb;
     public SpriteRenderer playerSprite;
     public Sprite upSprite;
     public Sprite downSprite;
@@ -28,19 +29,14 @@ public class PlayerScript : MonoBehaviour
     private float my;
     private float mx;
 
-    //[SerializeField] private GameObject gunPivot;
-
-    //public SpriteRenderer bulletSprite; //probably need to do some logic with these sprites like with the player but idk how
-
     [SerializeField] private float bulletSpeed = 5f;
 
-    //Gun varialbes
+    //Firing varialbes
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firingPoint;
 
     [Range(0.1f, 2f)]
     [SerializeField] private float fireRate = 0.5f;
-    private Rigidbody2D rb;
     private float fireTimer; //determines when enough time has passed to shoot again
 
 
@@ -67,13 +63,10 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update() {
+        mx = Input.GetAxisRaw("Horizontal");
+        my = Input.GetAxisRaw("Vertical");
 
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float angle = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg - 90f; //The -90f makes the "top of the player act as the front of the player"
-        //gunPivot.transform.localRotation = Quaternion.Euler(0, 0, angle); //Dont ask me what this does
-        
         if (Input.GetMouseButton(0) && fireTimer<= 0f){
             Fire();
             fireTimer = fireRate;
@@ -84,7 +77,6 @@ public class PlayerScript : MonoBehaviour
 
 
         moveDirection = move.ReadValue<Vector2>();
-        //Debug.Log("We moved: "+ move.ReadValue<Vector2>());
 
         // Update sprite
         if (moveDirection == Vector2.zero) {
@@ -99,7 +91,6 @@ public class PlayerScript : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        //rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y*moveSpeed);
         rb.linearVelocity = new Vector2(mx, my).normalized * bulletSpeed;
 
         rb.linearVelocity = moveDirection * moveSpeed;
@@ -107,6 +98,8 @@ public class PlayerScript : MonoBehaviour
     }
 
     private void Fire() {
-        Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float angle = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg - 90f; //The -90f makes the "top of the player act as the front of the player"
+        Instantiate(bulletPrefab, firingPoint.position, Quaternion.Euler(0, 0, angle));
     }
 }

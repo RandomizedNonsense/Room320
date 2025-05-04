@@ -22,9 +22,19 @@ public class Bullet : MonoBehaviour
         rb.linearVelocity = transform.up * speed;
     }
 
+
+
     //add OnTriggerEnter2D if you want to to be destroyed when it collides with an enemy
-    // void OnTriggerEnter2D(Collider2D collision)
-    // {
-        
-    // }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+         if (collision.CompareTag("Enemy"))
+        {
+            // Destroy the bullet
+            Destroy(gameObject);
+        }
+        else if (collision.CompareTag("Obstacle"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }
