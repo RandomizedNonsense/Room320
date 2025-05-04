@@ -10,6 +10,7 @@ public class WizbowoBrain : MonoBehaviour
 
     [Range(0f, 1f)]
     [SerializeField] float waveAttackOdds = 0.5f;   // The odds of choosing the "WandWave" attack over the "WandSlam" attack
+    [SerializeField] float waveAttackDelay = 0.1f;  // How long we should wait between each projectile being fired
 
     [SerializeField] GameObject projectilePrefab;  // The projectile prefab that Wizbowo fires
     [SerializeField] Transform firePoint;          // The position where the projectiles will be fired from
@@ -50,23 +51,31 @@ public class WizbowoBrain : MonoBehaviour
 }
 
 
-     private void WandWave()
-    {
+     private IEnumerator WandWave()
+     {
         if (playerScript != null)
         {
             // Trigger the wave animation
             animator.SetTrigger("WaveTrigger"); // This triggers the wave animation
 
-            // Get the player's position from the PlayerScript
-            Vector2 directionToPlayer = (playerScript.transform.position - transform.position).normalized;
-
             // Fire multiple projectiles towards the player
             for (int i = 0; i < 5; i++)
             {
-                GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
-                Rigidbody2D rbProjectile = projectile.GetComponent<Rigidbody2D>();
-                rbProjectile.linearVelocity = directionToPlayer * 10f; // Set velocity towards player
+                // Get the player's position from the PlayerScript
+                Vector2 directionToPlayer = (playerScript.transform.position - firePoint.transform.position).normalized;
+                float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg - 90f;
+
+                Bullet projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
+                projectile.transform.localRotation = Quaternion.Euler(0, 0, angle);
+
+                yield return new WaitForSeconds(waveAttackDelay);
             }
+
+            // Wait for animation to finish
+            while (isAttacking) {
+                yield return new WaitForEndOfFrame();
+            }
+            isAttacking = true;
         }
         else
         {
@@ -76,7 +85,9 @@ public class WizbowoBrain : MonoBehaviour
         isAttacking = false;
     }
 
-    void WandSlam() {
+    private IEnumerator WandSlam() {
+        // I don't think we need to complete this attack. It's probably doable for this sprint, but it's likely very complicated
+
         // Notes: in this attack, Wizbowo slams his wand against the ground twice before disappearing, shortly reappearing with two or three duplicates
         if (animator != null)
         {
@@ -98,19 +109,23 @@ public class WizbowoBrain : MonoBehaviour
                 // Decide attack type based on odds
                 if (Random.value < waveAttackOdds)
                 {
-                    // Trigger the idle animation (if needed)
-                    animator.SetTrigger("IdleTrigger"); // This triggers the idle animation
-                    WandWave();
+                    yield return StartCoroutine(WandWave());
                 }
                 else
                 {
-                    WandSlam();
+                    yield return StartCoroutine(WandSlam());
                 }
+
+                animator.SetTrigger("IdleTrigger");
 
                 yield return new WaitForSeconds(idleTime); // Wait for idle time after attack
             }
 
             yield return null;
         }
+    }
+
+    public void FinishAttack() {
+        isAttacking = false;
     }
 }
