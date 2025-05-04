@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class MovementScript : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
     public SpriteRenderer playerSprite;
     public Sprite upSprite;
