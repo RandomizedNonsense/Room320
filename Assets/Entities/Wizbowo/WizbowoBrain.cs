@@ -95,6 +95,33 @@ public class WizbowoBrain : MonoBehaviour
             animator.SetTrigger("SlamTrigger"); // This triggers the slam animation
         }
 
+        // Create two fake Wizbowo clones
+        GameObject fakeWizbowo1 = Instantiate(gameObject, transform.position, Quaternion.identity);
+        GameObject fakeWizbowo2 = Instantiate(gameObject, transform.position, Quaternion.identity);
+
+        // Remove colliders for fake Wizbowos
+        Destroy(fakeWizbowo1.GetComponent<Collider2D>());
+        Destroy(fakeWizbowo2.GetComponent<Collider2D>());
+
+        // Get the FakeWizbowo script on the fake Wizbowos
+        FakeWizbowo fakeWizbowoScript1 = fakeWizbowo1.GetComponent<FakeWizbowo>();
+        FakeWizbowo fakeWizbowoScript2 = fakeWizbowo2.GetComponent<FakeWizbowo>();
+
+        // Set the references for both fake Wizbowos
+        fakeWizbowoScript1.SetReferences(projectilePrefab, firePoint);
+        fakeWizbowoScript2.SetReferences(projectilePrefab, firePoint);
+
+        // Have fake Wizbowos fire projectiles but not harm the player
+        fakeWizbowoScript1.FireFakeProjectiles();
+        fakeWizbowoScript2.FireFakeProjectiles();
+
+        // Wait for a short duration before cleaning up the fake Wizbowos
+        yield return new WaitForSeconds(3f);  // Duration of the fake Wizbowo clones' existence
+
+        // Destroy fake Wizbowos after the attack is done
+        Destroy(fakeWizbowo1);
+        Destroy(fakeWizbowo2);
+
         isAttacking = false;
     }
 
