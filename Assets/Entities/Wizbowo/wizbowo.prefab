@@ -4799,7 +4799,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -994650805
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 5
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -4920,6 +4920,8 @@ MonoBehaviour:
   waveAttackDelay: 0.3
   projectilePrefab: {fileID: 6250646418800695104, guid: 28aba542b3da769429fab9edb9fd4e69, type: 3}
   firePoint: {fileID: 39086741415218075}
+  maxHealth: 100
+  health: 0
 --- !u!212 &1621913263421062899
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4962,8 +4964,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -994650805
-  m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingLayer: 4
+  m_SortingOrder: 0
   m_Sprite: {fileID: -7783813424544337531, guid: 9114abc191b63f546a577510aa6d2037, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
