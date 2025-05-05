@@ -33,22 +33,22 @@ public class WizbowoBrain : MonoBehaviour
     }
 
     public void FireProjectile()
-{
-    if (playerScript != null && projectilePrefab != null && firePoint != null)
     {
-        // Get the player's position from the PlayerScript
-        Vector2 directionToPlayer = (playerScript.transform.position - transform.position).normalized;
-
-        // Fire a projectile towards the player
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
-        Rigidbody2D rbProjectile = projectile.GetComponent<Rigidbody2D>();
-        rbProjectile.linearVelocity = directionToPlayer * 10f; // Set velocity towards player
+        if (playerScript != null && projectilePrefab != null && firePoint != null)
+        {
+            // Get the player's position from the PlayerScript
+            Vector2 directionToPlayer = (playerScript.transform.position - transform.position).normalized;
+            
+            // Fire a projectile towards the player
+            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+            Rigidbody2D rbProjectile = projectile.GetComponent<Rigidbody2D>();
+            rbProjectile.linearVelocity = directionToPlayer * 10f; // Set velocity towards player
+        }
+        else
+        {
+            Debug.LogError("Projectile Prefab or Fire Point not assigned!");
+        }
     }
-    else
-    {
-        Debug.LogError("Projectile Prefab or Fire Point not assigned!");
-    }
-}
 
 
      private IEnumerator WandWave()
@@ -65,7 +65,7 @@ public class WizbowoBrain : MonoBehaviour
                 Vector2 directionToPlayer = (playerScript.transform.position - firePoint.transform.position).normalized;
                 float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg - 90f;
 
-                Bullet projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
+                WizbowoBullet projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity).GetComponent<WizbowoBullet>();
                 projectile.transform.localRotation = Quaternion.Euler(0, 0, angle);
 
                 yield return new WaitForSeconds(waveAttackDelay);

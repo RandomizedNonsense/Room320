@@ -24,14 +24,9 @@ public class Bullet : MonoBehaviour
 
 
 
-    //add OnTriggerEnter2D if you want to to be destroyed when it collides with an enemy
+    //Currently is simply destroyed when it collides with the enemy or an obstacle, we need to add damage to it
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("FakeProjectile"))
-        {
-            // Fake projectiles don't hurt the player
-            return;
-        }
          if (collision.CompareTag("Enemy"))
         {
             // Destroy the bullet
