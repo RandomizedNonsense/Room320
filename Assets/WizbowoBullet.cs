@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class WizbowoBullet : MonoBehaviour
 {
+    [SerializeField] private float damage = 10f;
+
     [Range(1,10)]
     [SerializeField] private float speed = 10f;
-
 
     [Range(1,10)]
     [SerializeField] private float lifeTime = 3f; //how long the bullet will be alive
@@ -29,11 +30,18 @@ public class WizbowoBullet : MonoBehaviour
     {
          if (collision.CompareTag("Player"))
         {
-            // Destroy the bullet
+            collision.GetComponent<PlayerScript>().TakeDamage(damage);
+
             Destroy(gameObject);
         }
         else if (collision.CompareTag("Obstacle"))
         {
+            Destroy(gameObject);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("Obstacle")) {
             Destroy(gameObject);
         }
     }

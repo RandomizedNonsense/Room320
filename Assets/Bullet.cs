@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [SerializeField] private float damage = 10f;
+
     [Range(1,10)]
     [SerializeField] private float speed = 10f;
-
 
     [Range(1,10)]
     [SerializeField] private float lifeTime = 3f; //how long the bullet will be alive
@@ -29,7 +30,8 @@ public class Bullet : MonoBehaviour
     {
          if (collision.CompareTag("Enemy"))
         {
-            // Destroy the bullet
+            collision.GetComponent<WizbowoBrain>().TakeDamage(damage);
+
             Destroy(gameObject);
         }
         else if (collision.CompareTag("Obstacle"))

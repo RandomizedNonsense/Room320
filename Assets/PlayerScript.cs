@@ -39,10 +39,15 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float fireRate = 0.5f;
     private float fireTimer; //determines when enough time has passed to shoot again
 
+    [SerializeField] public float maxHealth = 100f;
+    public float health;
+
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         playerControls = new PlayerMovement();
+
+        health = maxHealth;
     }
 
     void OnEnable() {
@@ -101,5 +106,13 @@ public class PlayerScript : MonoBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float angle = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg - 90f; //The -90f makes the "top of the player act as the front of the player"
         Instantiate(bulletPrefab, firingPoint.position, Quaternion.Euler(0, 0, angle));
+    }
+
+    public void TakeDamage(float damage) {
+        health -= damage;
+
+        if (health <= 0) {
+            Destroy(gameObject);
+        }
     }
 }

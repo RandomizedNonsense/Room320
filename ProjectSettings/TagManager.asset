@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - Enemy
   - PlayerBullet
   - EnemyBullet
-  - 
+  - Obstacle
   - 
   - 
   - 
@@ -53,6 +54,9 @@ TagManager:
     locked: 0
   - name: Walls
     uniqueID: 495675303
+    locked: 0
+  - name: UI
+    uniqueID: 752672815
     locked: 0
   m_RenderingLayers:
   - Default
