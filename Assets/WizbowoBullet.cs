@@ -34,15 +34,9 @@ public class WizbowoBullet : MonoBehaviour
 
             Destroy(gameObject);
         }
-        else if (collision.CompareTag("Obstacle"))
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Obstacle")) {
-            Destroy(gameObject);
-        }
+        //else if (collision.CompareTag("Obstacle"))
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 }
