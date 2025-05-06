@@ -20,7 +20,6 @@ public class WizbowoBrain : MonoBehaviour
 
     [SerializeField] GameObject fakeWizbowoPrefab;  // Reference to the Fake Wizbowo prefab to spawn as clone
     
-     private void Start()
     [SerializeField] public float maxHealth = 100f;
     public float health;
 
@@ -107,17 +106,8 @@ public class WizbowoBrain : MonoBehaviour
         FakeWizbowo fakeWizbowoScript1 = fakeWizbowo1.GetComponent<FakeWizbowo>();
         FakeWizbowo fakeWizbowoScript2 = fakeWizbowo2.GetComponent<FakeWizbowo>();
 
-        // Set the projectile-related properties on the fake Wizbowos (same as real Wizbowo)
-        fakeWizbowoScript1.SetReferences(projectilePrefab, firePoint);
-        fakeWizbowoScript2.SetReferences(projectilePrefab, firePoint);
-
         fakeWizbowo1.SetActive(true);
         fakeWizbowo2.SetActive(true);
-
-        // Have fake Wizbowos fire projectiles that interact with the player (they'll hurt the player)
-        fakeWizbowoScript1.FireRegularProjectiles();
-        fakeWizbowoScript2.FireRegularProjectiles();
-
 
         // Control how long the fake Wizbowos appear in the scene (duration is adjustable)
         float fakeWizbowoDuration = 3f; // Adjust this value to control how long they stay

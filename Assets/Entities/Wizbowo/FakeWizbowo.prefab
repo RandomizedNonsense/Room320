@@ -9,18 +9,18 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1286708825822555191}
+  - component: {fileID: 7234568835337276977}
   - component: {fileID: 7351929808376461078}
   - component: {fileID: 4596573074753844426}
   - component: {fileID: 4963367014661482829}
   - component: {fileID: 6564231588575059924}
-  - component: {fileID: 7234568835337276977}
   m_Layer: 6
   m_Name: FakeWizbowo
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1286708825822555191
 Transform:
   m_ObjectHideFlags: 0
@@ -38,6 +38,23 @@ Transform:
   - {fileID: 2997196259025789482}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7234568835337276977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968873005186349035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5366004ff3460f418376c1e55a4f320, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 6250646418800695104, guid: 2a9086d3522c7a54dbbc80dbaca2d8b7, type: 3}
+  firePoint: {fileID: 2997196259025789482}
+  projectileSpeed: 10
+  fireRate: 0.5
+  lifespan: 5
 --- !u!212 &7351929808376461078
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -80,7 +97,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -994650805
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: -7783813424544337531, guid: 9114abc191b63f546a577510aa6d2037, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -219,23 +236,6 @@ PolygonCollider2D:
       - {x: -0.2982512, y: -0.60889053}
       - {x: -0.375, y: -1.3125}
   m_UseDelaunayMesh: 0
---- !u!114 &7234568835337276977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 968873005186349035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5366004ff3460f418376c1e55a4f320, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6250646418800695104, guid: 28aba542b3da769429fab9edb9fd4e69, type: 3}
-  firePoint: {fileID: 2997196259025789482}
-  projectileSpeed: 10
-  fireRate: 0.5
-  lifespan: 5
 --- !u!1 &1379483803656841629
 GameObject:
   m_ObjectHideFlags: 0
@@ -5035,7 +5035,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -994650805
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 5
   m_RenderMode: 0
   m_MeshDistribution: 0

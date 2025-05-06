@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9210466250585732711}
   - component: {fileID: -906637327865697046}
   m_Layer: 8
-  m_Name: WizbowoBullet
+  m_Name: WizbowoBulletFake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 1746235313
   m_SortingLayer: 2
   m_SortingOrder: 2
-  m_Sprite: {fileID: -7243563388056777162, guid: efc5446ef1c31e841acb813ebf089681, type: 3}
+  m_Sprite: {fileID: -2014131868727140717, guid: efc5446ef1c31e841acb813ebf089681, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
