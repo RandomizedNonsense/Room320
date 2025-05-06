@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3192969326314083068}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: FiringPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1590068960609978161}
   - component: {fileID: 3046481928816102744}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,9 +130,9 @@ GameObject:
   - component: {fileID: 976092340320247920}
   - component: {fileID: 5417477015854455330}
   - component: {fileID: 7153108016269010828}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,6 +176,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   firingPoint: {fileID: 0}
   fireRate: 0.5
+  maxHealth: 100
+  health: 0
 --- !u!50 &5417477015854455330
 Rigidbody2D:
   serializedVersion: 5
@@ -233,7 +235,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

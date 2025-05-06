@@ -21,10 +21,16 @@ public class WizbowoBrain : MonoBehaviour
     [SerializeField] GameObject fakeWizbowoPrefab;  // Reference to the Fake Wizbowo prefab to spawn as clone
     
      private void Start()
+    [SerializeField] public float maxHealth = 100f;
+    public float health;
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>(); //Initialize animator
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        health = maxHealth;
 
         if (player != null)
         {
@@ -166,5 +172,13 @@ public class WizbowoBrain : MonoBehaviour
 
     public void FinishAttack() {
         isAttacking = false;
+    }
+
+    public void TakeDamage(float damage) {
+        health -= damage;
+
+        if (health <= 0) {
+            Destroy(gameObject);
+        }
     }
 }

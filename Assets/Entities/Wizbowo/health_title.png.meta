@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 788f909b01e82ec4abc97c45a6f512dd
+guid: 0d0323e138e13f04caee02840a6ff268
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8409273666497574423
-    second: carpets_0
+      213: 8387481008663114690
+    second: health_title_0
+  - first:
+      213: -5241765921414100216
+    second: health_title_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,40 +99,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: carpets_0
+      name: health_title_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 160
-        height: 68
+        width: 48
+        height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 71672ae68ddb3b470800000000000000
-      internalID: 8409273666497574423
+      spriteID: 2c333b1e981566470800000000000000
+      internalID: 8387481008663114690
       vertices: []
       indices: 
       edges: []
@@ -138,7 +128,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 13776636a47a3ba4bb8adaa3142e36d2
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +138,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      carpets_0: 8409273666497574423
+      health_title_0: 8387481008663114690
+      health_title_1: -5241765921414100216
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

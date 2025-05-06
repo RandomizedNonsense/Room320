@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 788f909b01e82ec4abc97c45a6f512dd
+guid: 6e5ebdb259cd54747a8bc3d266b01998
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8409273666497574423
-    second: carpets_0
+      213: 8033975403568566451
+    second: desk_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: carpets_0
+      name: desk_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 160
-        height: 68
+        width: 48
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 71672ae68ddb3b470800000000000000
-      internalID: 8409273666497574423
+      spriteID: 3b01eef401a6e7f60800000000000000
+      internalID: 8033975403568566451
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      carpets_0: 8409273666497574423
+      desk_0: 8033975403568566451
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
