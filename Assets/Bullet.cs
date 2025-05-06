@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
     {
          if (collision.CompareTag("Enemy"))
         {
-            WizbowoBrain brain = GetComponent<WizbowoBrain>();
+            WizbowoBrain brain = collision.GetComponent<WizbowoBrain>();
 
             if (brain != null) {
                 brain.TakeDamage(damage);
