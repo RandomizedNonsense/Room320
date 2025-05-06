@@ -2,53 +2,78 @@ using UnityEngine;
 
 public class FakeWizbowo : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private bool isFake = false;
-    private PlayerScript playerScript;  // Reference to the player's PlayerScript
-    private Animator animator;          // Reference to the Animator component
+    [SerializeField] GameObject projectilePrefab;  // The projectile prefab fired by fake Wizbowo
+    [SerializeField] Transform firePoint;          // The point from which the projectiles will be fired
 
-    // Add references for projectilePrefab and firePoint
-    private GameObject projectilePrefab;
-    private Transform firePoint;
+    [SerializeField] float projectileSpeed = 10f;  // Speed of the projectile
+    [SerializeField] float fireRate = 0.5f;        // Fire rate (time between projectiles)
+    [SerializeField] float lifespan = 5f;          // Lifespan of the fake Wizbowo before disappearing
+
+    private Transform playerTransform;             // Reference to the player's transform
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        // Find the player object and get the transform (assuming the player has the "Player" tag)
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-
         if (player != null)
         {
-            playerScript = player.GetComponent<PlayerScript>();  // Get the PlayerScript component from the player object
+            playerTransform = player.transform;
+        }
+        else
+        {
+            Debug.LogError("Player not found!");
+        }
+
+        // Ensure SetReferences is called to set projectilePrefab and firePoint
+        if (projectilePrefab != null && firePoint != null)
+        {
+            SetReferences(projectilePrefab, firePoint);
+        }
+        else
+        {
+            Debug.LogError("Projectile Prefab or FirePoint is missing in FakeWizbowo.");
+        }
+
+        // Fire projectiles at regular intervals
+        InvokeRepeating("FireRegularProjectiles", 0f, fireRate);
+
+        // Destroy the fake Wizbowo after its lifespan ends
+        Destroy(gameObject, lifespan);
+    }
+
+
+    // Method to set references for projectile prefab and fire point
+    public void SetReferences(GameObject projectilePrefab, Transform firePoint)
+    {
+        this.projectilePrefab = projectilePrefab;
+        this.firePoint = firePoint;
+
+        if (projectilePrefab == null || firePoint == null)
+        {
+            Debug.LogError("Projectile Prefab or Fire Point not assigned in FakeWizbowo!");
+        }
+        else
+        {
+            Debug.Log("FakeWizbowo references set successfully.");
         }
     }
 
-    // Add a method to set the references
-    public void SetReferences(GameObject prefab, Transform point)
-    {
-        projectilePrefab = prefab;
-        firePoint = point;
-    }
 
-    public void SetAsFake()
+    public void FireRegularProjectiles()
     {
-        isFake = true;
-        Destroy(GetComponent<Collider2D>());  // Remove the collider from the fake Wizbowo
-    }
-
-    public void FireFakeProjectiles()
-    {
-        // This will fire projectiles like the real Wizbowo, but without damaging the player
-        if (playerScript != null && projectilePrefab != null && firePoint != null)
+        if (playerTransform != null && projectilePrefab != null && firePoint != null)
         {
-            Vector2 directionToPlayer = (playerScript.transform.position - transform.position).normalized;
-
-            // Fire the projectile towards the player
+            // Fire a regular projectile (this will hurt the player)
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
             Rigidbody2D rbProjectile = projectile.GetComponent<Rigidbody2D>();
-            rbProjectile.linearVelocity = directionToPlayer * 10f;  // Set velocity towards player
 
-            // Ensure the projectile doesn't hurt the player (you can use Layer Mask or Tags)
-            projectile.tag = "FakeProjectile";  // Mark the projectile as fake
+            // Fire the projectile towards the player
+            Vector2 directionToPlayer = (playerTransform.position - firePoint.position).normalized;
+            rbProjectile.linearVelocity = directionToPlayer * projectileSpeed;
+        }
+        else
+        {
+            Debug.LogError("Player not found or projectile/firePoint missing!");
         }
     }
 }

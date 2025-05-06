@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: 1874228c67e2b1643a4b7b666328a654
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - projectilePrefab: {fileID: 6250646418800695104, guid: 28aba542b3da769429fab9edb9fd4e69, type: 3}
+  - firePoint: {instanceID: 0}
+  - fakeWizbowoPrefab: {fileID: 968873005186349035, guid: e9281a823a7b1a34ea368b5093d7feaa, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

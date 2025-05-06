@@ -17,6 +17,8 @@ public class WizbowoBrain : MonoBehaviour
 
     private PlayerScript playerScript; // Reference to the player's PlayerScript
     private Animator animator; // Reference to the Animator component
+
+    [SerializeField] GameObject fakeWizbowoPrefab;  // Reference to the Fake Wizbowo prefab to spawn as clone
     
      private void Start()
     {
@@ -85,72 +87,82 @@ public class WizbowoBrain : MonoBehaviour
         isAttacking = false;
     }
 
-    private IEnumerator WandSlam() {
-        // I don't think we need to complete this attack. It's probably doable for this sprint, but it's likely very complicated
-
-        // Notes: in this attack, Wizbowo slams his wand against the ground twice before disappearing, shortly reappearing with two or three duplicates
-        if (animator != null)
-        {
-            // Trigger the slam animation
-            animator.SetTrigger("SlamTrigger"); // This triggers the slam animation
-        }
+    private IEnumerator WandSlam()
+    {
+        Debug.Log("WandSlam started!");
+        // Trigger the slam animation
+        animator.SetTrigger("SlamTrigger"); // This triggers the slam animation
 
         // Create two fake Wizbowo clones
-        GameObject fakeWizbowo1 = Instantiate(gameObject, transform.position, Quaternion.identity);
-        GameObject fakeWizbowo2 = Instantiate(gameObject, transform.position, Quaternion.identity);
+        GameObject fakeWizbowo1 = Instantiate(fakeWizbowoPrefab, transform.position + new Vector3(-5f, -3f, 0f), Quaternion.identity);
+        GameObject fakeWizbowo2 = Instantiate(fakeWizbowoPrefab, transform.position + new Vector3(5f, -3f, 0f), Quaternion.identity);
 
-        // Remove colliders for fake Wizbowos
-        Destroy(fakeWizbowo1.GetComponent<Collider2D>());
-        Destroy(fakeWizbowo2.GetComponent<Collider2D>());
-
-        // Get the FakeWizbowo script on the fake Wizbowos
+        // Set the references for both fake Wizbowos
         FakeWizbowo fakeWizbowoScript1 = fakeWizbowo1.GetComponent<FakeWizbowo>();
         FakeWizbowo fakeWizbowoScript2 = fakeWizbowo2.GetComponent<FakeWizbowo>();
 
-        // Set the references for both fake Wizbowos
+        // Set the projectile-related properties on the fake Wizbowos (same as real Wizbowo)
         fakeWizbowoScript1.SetReferences(projectilePrefab, firePoint);
         fakeWizbowoScript2.SetReferences(projectilePrefab, firePoint);
 
-        // Have fake Wizbowos fire projectiles but not harm the player
-        fakeWizbowoScript1.FireFakeProjectiles();
-        fakeWizbowoScript2.FireFakeProjectiles();
+        fakeWizbowo1.SetActive(true);
+        fakeWizbowo2.SetActive(true);
 
-        // Wait for a short duration before cleaning up the fake Wizbowos
-        yield return new WaitForSeconds(3f);  // Duration of the fake Wizbowo clones' existence
+        // Have fake Wizbowos fire projectiles that interact with the player (they'll hurt the player)
+        fakeWizbowoScript1.FireRegularProjectiles();
+        fakeWizbowoScript2.FireRegularProjectiles();
 
+
+        // Control how long the fake Wizbowos appear in the scene (duration is adjustable)
+        float fakeWizbowoDuration = 3f; // Adjust this value to control how long they stay
+        Debug.Log("Fake Wizbowos will stay for: " + fakeWizbowoDuration + " seconds.");
+
+        // Wait for the set duration before cleaning up the fake Wizbowos
+        yield return new WaitForSeconds(fakeWizbowoDuration);  // Duration of the fake Wizbowo clones' existence
+
+        
         // Destroy fake Wizbowos after the attack is done
         Destroy(fakeWizbowo1);
         Destroy(fakeWizbowo2);
 
         isAttacking = false;
+        Debug.Log("WandSlam completed!");
     }
+
 
     private IEnumerator IdleAndAttackRoutine()
+{
+    while (true)
     {
-        while (true)
+        if (!isAttacking)
         {
-            if (!isAttacking)
+            isAttacking = true;
+
+            // Debugging log to check Random value and waveAttackOdds
+            Debug.Log("Random.value: " + Random.value);
+            Debug.Log("waveAttackOdds: " + waveAttackOdds);
+
+            // Decide attack type based on odds
+            if (Random.value < waveAttackOdds)
             {
-                isAttacking = true;
-
-                // Decide attack type based on odds
-                if (Random.value < waveAttackOdds)
-                {
-                    yield return StartCoroutine(WandWave());
-                }
-                else
-                {
-                    yield return StartCoroutine(WandSlam());
-                }
-
-                animator.SetTrigger("IdleTrigger");
-
-                yield return new WaitForSeconds(idleTime); // Wait for idle time after attack
+                Debug.Log("WandWave is selected");
+                yield return StartCoroutine(WandWave());
+            }
+            else
+            {
+                Debug.Log("WandSlam is selected");
+                yield return StartCoroutine(WandSlam()); // Make sure WandSlam is being triggered
             }
 
-            yield return null;
+            animator.SetTrigger("IdleTrigger");
+
+            yield return new WaitForSeconds(idleTime); // Wait for idle time after attack
         }
+
+        yield return null;
     }
+}
+
 
     public void FinishAttack() {
         isAttacking = false;

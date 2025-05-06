@@ -36,7 +36,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Transform firingPoint;
 
     [Range(0.1f, 2f)]
-    [SerializeField] private float fireRate = 0.5f;
+    [SerializeField] private float fireRate = 0.25f;
     private float fireTimer; //determines when enough time has passed to shoot again
 
 
